@@ -1,0 +1,32 @@
+[
+    {
+        "en": "User created successfully",
+        "status": 201,
+        "errcode": "701",
+        "Description": "User created successfully"
+    },
+    {
+        "en": "Error 702: Please Contact Help Desk",
+        "status": 500,
+        "errcode": "702",
+        "Description": "Error while Insterting User"
+    },
+    {
+        "en": "Error 703: Please Contact Help Desk",
+        "status": 500,
+        "errcode": "703",
+        "Description": "Error while Fetching the inserted User"
+    },
+    {
+        "en": "Error 704: Please Contact Help Desk",
+        "status": 500,
+        "errcode": "704",
+        "Description": "Error while Fetching the user by name"
+    },
+    {
+        "en": "User already exists",
+        "status": 409,
+        "errcode": "705",
+        "Description": "User already exists"
+    }
+]
