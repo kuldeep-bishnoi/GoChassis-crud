@@ -19,7 +19,7 @@ import (
 func LoadErrors(errors []map[string]interface{}) {
 	res := make(map[string]interface{})
 	for _, err := range errors {
-		res[res["error"].(string)] = err
+		res[err["errcode"].(string)] = err
 	}
 	common.ErrorMessage = res
 }
@@ -41,9 +41,9 @@ func main() {
 	r := resource.Resource{UserService: &usersservice.UserService{UserRepo: &repo}}
 	s.HandleFunc("/createProfile", r.CreateUser).Methods("POST")
 	s.HandleFunc("/getAllUsers", r.GetAllUsers).Methods("GET")
-	// s.HandleFunc("/getUserProfile/{id}", getUserProfile).Methods("GET")
-	// s.HandleFunc("/updateProfile/{id}", updateProfile).Methods("PUT")
-	// s.HandleFunc("/deleteProfile/{id}", deleteProfile).Methods("DELETE")
+	s.HandleFunc("/getUserProfile/{id}", r.GetUserProfile).Methods("GET")
+	s.HandleFunc("/updateProfile/{id}", r.UpdateProfile).Methods("PUT")
+	s.HandleFunc("/deleteProfile/{id}", r.DeleteUser).Methods("DELETE")
 
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:3000"},

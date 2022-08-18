@@ -10,6 +10,8 @@ type UserService struct {
 	UserRepo userrepo.UserRepoInterface
 }
 
+func init() { log.SetFlags(log.Lshortfile | log.LstdFlags) }
+
 func (us *UserService) CreateUser(input common.CreateUserInput) common.Response {
 	res, errcode, err := us.UserRepo.IsNameNotExists(input.Metadata["name"].(string))
 	if err != nil {
@@ -22,4 +24,55 @@ func (us *UserService) CreateUser(input common.CreateUserInput) common.Response 
 		return common.ResponseHandler(errcode, input.Language, 0, nil)
 	}
 	return common.ResponseHandler("701", input.Language, 1, res)
+}
+
+func (us *UserService) GetAllUsers(input common.GetAllUsersInput) common.Response {
+	res, errcode, err, count := us.UserRepo.GetAllUsersInput(input.Filters, input.Page, input.Size)
+	if err != nil {
+		log.Println(err)
+		return common.ResponseHandler(errcode, input.Language, count, nil)
+	}
+	return common.ResponseHandler("710", input.Language, count, res)
+}
+
+func (us *UserService) DeleteUser(input common.DeleteUserInput) common.Response {
+
+	res, errcode, err := us.UserRepo.Delete(input.ID)
+	if err != nil {
+		log.Println(err)
+		return common.ResponseHandler(errcode, input.Language, 0, nil)
+	}
+	return common.ResponseHandler("708", input.Language, 1, res)
+}
+
+func (us *UserService) GetUserProfile(input common.GetUserProfileInput) common.Response {
+	res, errcode, err := us.UserRepo.Getbyid(input.ID)
+	if err != nil {
+		log.Println(err)
+		return common.ResponseHandler(errcode, input.Language, 0, nil)
+	}
+	return common.ResponseHandler("710", input.Language, 1, res)
+}
+func (us *UserService) UpdateUserProfile(input common.UpdateUserProfileInput) common.Response {
+	res, errcode, err := us.UserRepo.Getbyid(input.ID)
+	if err != nil {
+		log.Println(err)
+		return common.ResponseHandler(errcode, input.Language, 0, nil)
+	}
+	name, nok := input.Metadata["name"].(string)
+	if nok {
+		if name != res["name"].(string) {
+			res, errcode, err := us.UserRepo.IsNameNotExists(input.Metadata["name"].(string))
+			if err != nil {
+				log.Println(err)
+				return common.ResponseHandler(errcode, input.Language, 0, res)
+			}
+		}
+	}
+	res, errcode, err = us.UserRepo.Update(input.ID, input.Metadata)
+	if err != nil {
+		log.Println(err)
+		return common.ResponseHandler(errcode, input.Language, 0, nil)
+	}
+	return common.ResponseHandler("714", input.Language, 1, res)
 }

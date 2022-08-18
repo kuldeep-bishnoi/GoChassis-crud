@@ -28,5 +28,143 @@
         "status": 409,
         "errcode": "705",
         "Description": "User already exists"
+    },
+    {
+        "en": "Invalid ID",
+        "status":400,
+        "errcode": "706",
+        "Description": "Invalid ID"
+    },
+    {
+        "en": "Error 707: Please Contact Help Desk",
+        "status":500,
+        "errcode": "707",
+        "Description": "Error while deleting the User"
+    },
+    {
+        "en": "User deleted successfully",
+        "status": 201,
+        "errcode": "708",
+        "Description": "User deleted successfully"
+    },
+    {
+        "en": "Error 709: Please Contact Help Desk",
+        "status":500,
+        "errcode": "709",
+        "Description": "Error while fetching the User"
+    },
+    {
+        "en": "User fetched successfully",
+        "status": 201,
+        "errcode": "710",
+        "Description": "User fetched successfully"
+    },
+    {
+        "en": "Invalid page no",
+        "status": 400,
+        "errcode": "711",
+        "Description": "Invalid page no"
+    },
+    {
+        "en": "Invalid size no",
+        "status": 400,
+        "errcode": "712",
+        "Description": "Invalid size no"
+    },
+    {
+        "en": "No document in the database",
+        "status": 400,
+        "errcode": "713",
+        "Description": "No document in the database"
+    },
+    {
+        "en": "User updated successfully",
+        "status": 201,
+        "errcode": "714",
+        "Description": "User updated successfully"
+    },
+    {
+        "en": "Error 715: Please Contact Help Desk",
+        "status":500,
+        "errcode": "715",
+        "Description": "Error while find and update"
+    },
+    {
+        "en": "User fetched successfully after inserting",
+        "status":201,
+        "errcode": "716",
+        "Description": "User fetched successfully after inserting"
+    },
+    {
+        "en": "Error 717: Please Contact Help Desk",
+        "status": 500,
+        "errcode": "717",
+        "Description": "Error while checking name exist or not"
+    },
+    {
+        "en": "Name alreday exists",
+        "status": 409,
+        "errcode": "718",
+        "Description": "Name already exists"
+    },
+    {
+        "en": "No document in the database",
+        "status": 400,
+        "errcode": "719",
+        "Description": "No document in the database"
+    },
+    {
+        "en": "Error 720: Please Contact Help Desk",
+        "status": 500,
+        "errcode": "720",
+        "Description": "Error while finding total count"
+    },
+    {
+        "en": "No document in the database",
+        "status": 400,
+        "errcode": "721",
+        "Description": "No document in the database to find"
+    },
+    {
+        "en": "No document in the database",
+        "status": 400,
+        "errcode": "722",
+        "Description": "No document in the database to find"
+    },
+    {
+        "en": "Error 723: Please Contact Help Desk",
+        "status":500,
+        "errcode": "723",
+        "Description": "Error while getting all users decode"
+    },
+    {
+        "en": "Error 724: Please Contact Help Desk",
+        "status": 201,
+        "errcode": "724",
+        "Description": "Error while finding and deleting user"
+    },
+    {
+        "en": "Invalid ID",
+        "status":400,
+        "errcode": "725",
+        "Description": "Invalid ID passed to delete user"
+    },
+    {
+        "en": "Invalid ID",
+        "status":400,
+        "errcode": "726",
+        "Description": "Invalid ID passed to get user"
+    },
+    {
+        "en": "Error 727: Please Contact Help Desk",
+        "status":500,
+        "errcode": "727",
+        "Description": "Error while fetching the user by id"
+    },
+    {
+        "en": "Error 728: Please Contact Help Desk",
+        "status":500,
+        "errcode": "728",
+        "Description": "Error while fetching the User by id"
     }
 ]
