@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"log"
 	"strconv"
-	"user_management/common"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -71,11 +70,10 @@ func (ur *UserRepo) GetAllUsersInput(filters string, page string, limit string) 
 		if err != nil {
 			if err == mongo.ErrNoDocuments {
 				log.Println("no documents found")
-				return nil, "721", nil, 0
+				return nil, "721", err, 0
 			}
 			return nil, "722", err, 0
 		}
-
 		for cur.Next(context.TODO()) {
 			var doc map[string]interface{}
 			err := cur.Decode(&doc)
@@ -86,7 +84,7 @@ func (ur *UserRepo) GetAllUsersInput(filters string, page string, limit string) 
 			result = append(result, doc)
 		}
 		cur.Close(context.TODO()) // close the cursor once stream of documents has exhausted
-		fmt.Println("total count:", totalcount)
+		fmt.Println("total count1:", totalcount)
 		return result, "", nil, int(totalcount)
 	}
 	if page == "" {
@@ -113,23 +111,30 @@ func (ur *UserRepo) GetAllUsersInput(filters string, page string, limit string) 
 		fmt.Println(err)
 		return nil, "721", err, 0
 	}
+	if totalcount == 0 {
+		return nil, "721", errors.New("totalcount is empty"), 0
+	}
 	cur, err := collection.Find(context.TODO(), p, &opts)
+	fmt.Println(err)
 	if err != nil {
-		fmt.Println(err)
+		if err == mongo.ErrNoDocuments {
+			log.Println("no documents found")
+			return nil, "721", err, 0
+		}
 		return nil, "722", err, 0
 	}
 	for cur.Next(context.TODO()) {
 		var doc map[string]interface{}
 		err := cur.Decode(&doc)
 		if err != nil {
-			log.Println("Decode error at line 81 in repoimple")
+			log.Println(err.Error())
 			return nil, "723", err, 0 //fix later error code
 		}
 		results = append(results, doc)
 	}
 	cur.Close(context.TODO()) // close the cursor once stream of documents has exhausted
-	common.ResponseHandler("710", "en", int(totalcount), results)
-	return results, "", errors.New(""), int(totalcount)
+	// common.ResponseHandler("710", "en", int(totalcount), results)
+	return results, "", err, int(totalcount)
 }
 
 func (ur *UserRepo) Delete(id string) (map[string]interface{}, string, error) {

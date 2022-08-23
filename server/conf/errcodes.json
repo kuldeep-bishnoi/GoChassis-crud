@@ -166,5 +166,11 @@
         "status":500,
         "errcode": "728",
         "Description": "Error while fetching the User by id"
+    },
+    {
+        "en": "Error 730: Please Contact Help Desk",
+        "status":500,
+        "errcode": "730",
+        "Description": "Error while fetching all users"
     }
 ]

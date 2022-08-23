@@ -24,11 +24,11 @@ func (sr *Resource) CreateUser(w http.ResponseWriter, r *http.Request) {
 	result, err := handlers.Validate(cpath, person)
 	if err != nil {
 		fmt.Println(err)
-		common.ResponseHandler("", "en", 0, result)
+		common.ResponseHandler("", "en", 0, result, w)
 		json.NewEncoder(w).Encode(result)
 		return
 	}
-	ip := common.CreateUserInput{Metadata: person, Language: "en"}
+	ip := common.CreateUserInput{Metadata: person, Language: "en", Status: w}
 	response := sr.UserService.CreateUser(ip)
 	json.NewEncoder(w).Encode(response)
 }
@@ -39,10 +39,10 @@ func (sr *Resource) GetAllUsers(w http.ResponseWriter, r *http.Request) {
 	id := parms["id"]
 	page := parms["page"]
 	size := parms["size"]
-	filters := parms["filters"]
+	filters := r.FormValue("filters")
 	var person = make(map[string]interface{})
 	json.NewDecoder(r.Body).Decode(&person)
-	ip := common.GetAllUsersInput{ID: id, Language: "en", Page: page, Size: size, Filters: filters}
+	ip := common.GetAllUsersInput{ID: id, Language: "en", Page: page, Size: size, Filters: filters, Status: w}
 	response := sr.UserService.GetAllUsers(ip)
 	json.NewEncoder(w).Encode(response)
 }
@@ -54,7 +54,7 @@ func (sr *Resource) DeleteUser(w http.ResponseWriter, r *http.Request) {
 	input := common.DeleteUserInput{ID: id}
 	var person = make(map[string]interface{})
 	json.NewDecoder(r.Body).Decode(&person)
-	ip := common.DeleteUserInput{ID: input.ID, Language: "en"}
+	ip := common.DeleteUserInput{ID: input.ID, Language: "en", Status: w}
 	response := sr.UserService.DeleteUser(ip)
 	json.NewEncoder(w).Encode(response)
 
@@ -66,7 +66,7 @@ func (sr *Resource) GetUserProfile(w http.ResponseWriter, r *http.Request) {
 	id := params["id"]
 	var person = make(map[string]interface{})
 	json.NewDecoder(r.Body).Decode(&person)
-	ip := common.GetUserProfileInput{ID: id, Language: "en"}
+	ip := common.GetUserProfileInput{ID: id, Language: "en", Status: w}
 	response := sr.UserService.GetUserProfile(ip)
 	json.NewEncoder(w).Encode(response)
 }
@@ -81,11 +81,11 @@ func (sr *Resource) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 	result, err := handlers.Validate(cpath, person)
 	if err != nil {
 		fmt.Println(err)
-		common.ResponseHandler("", "en", 0, result)
+		common.ResponseHandler("", "en", 0, result, w)
 		json.NewEncoder(w).Encode(result)
 		return
 	}
-	ip := common.UpdateUserProfileInput{ID: id, Metadata: person, Language: "en"}
+	ip := common.UpdateUserProfileInput{ID: id, Metadata: person, Language: "en", Status: w}
 	response := sr.UserService.UpdateUserProfile(ip)
 	json.NewEncoder(w).Encode(response)
 }
